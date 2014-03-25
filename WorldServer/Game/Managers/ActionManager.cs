@@ -30,11 +30,11 @@ namespace WorldServer.Game.Managers
 
         public void LoadActionButtons(Character pChar)
         {
-            SQLResult result = DB.Characters.Select("SELECT * FROM character_actions WHERE guid = ? ORDER BY slotId ASC", pChar.Guid);
+            SQLResult result = DB.Characters.Select("SELECT * FROM `character_actions` WHERE `guid` = ? ORDER BY `slotId` ASC", pChar.Guid);
 
             if (result.Count == 0)
             {
-                result = DB.Characters.Select("SELECT action, slotId FROM character_creation_actions WHERE race = ? AND class = ? ORDER BY slotId ASC", pChar.Race, pChar.Class);
+                result = DB.Characters.Select("SELECT `action`, `slotId` FROM `character_creation_actions` WHERE `race` = ? AND `class` = ? ORDER BY `slotId` ASC", pChar.Race, pChar.Class);
 
                 for (int i = 0; i < result.Count; i++)
                 {
@@ -77,7 +77,7 @@ namespace WorldServer.Game.Managers
             pChar.ActionButtons.Add(actionButton);
 
             if (addToDb)
-                DB.Characters.Execute("INSERT INTO character_actions (guid, action, slotId, specGroup) VALUES (?, ?, ?, ?)", pChar.Guid, actionButton.Action, actionButton.SlotId, actionButton.SpecGroup);
+                DB.Characters.Execute("INSERT IGNORE INTO `character_actions` (`guid`, `action`, `slotId`, `specGroup`) VALUES (?, ?, ?, ?)", pChar.Guid, actionButton.Action, actionButton.SlotId, actionButton.SpecGroup);
         }
 
         public void RemoveActionButton(Character pChar, ActionButton actionButton, bool deleteFromDb = false)
@@ -88,7 +88,7 @@ namespace WorldServer.Game.Managers
             var deleted = pChar.ActionButtons.Remove(actionButton);
 
             if (deleted && deleteFromDb)
-                DB.Characters.Execute("DELETE FROM character_actions WHERE guid = ? AND action = ? AND slotId = ? AND specGroup = ?", pChar.Guid, actionButton.Action, actionButton.SlotId, pChar.ActiveSpecGroup);
+                DB.Characters.Execute("DELETE FROM `character_actions` WHERE `guid` = ? AND `action` = ? AND `slotId` = ? AND `specGroup` = ?", pChar.Guid, actionButton.Action, actionButton.SlotId, pChar.ActiveSpecGroup);
         }
     }
 }
