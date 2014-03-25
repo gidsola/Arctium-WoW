@@ -31,7 +31,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class CacheHandler : Globals
     {
-        [Opcode(ClientMessage.CliQueryCreature, "17930")]
+        [Opcode(ClientMessage.CliQueryCreature, "18019")]
         public static void HandleQueryCreature(ref PacketReader packet, WorldClass session)
         {
             var id = packet.Read<int>();
@@ -103,7 +103,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref queryCreatureResponse);
         }
 
-        [Opcode(ClientMessage.CliQueryGameObject, "17930")]
+        [Opcode(ClientMessage.CliQueryGameObject, "18019")]
         public static void HandleQueryGameObject(ref PacketReader packet, WorldClass session)
         {
             byte[] guidMask = { 3, 6, 0, 7, 2, 1, 4, 5 };
@@ -162,7 +162,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref queryGameObjectResponse);
         }
 
-        [Opcode(ClientMessage.CliQueryNPCText, "17930")]
+        [Opcode(ClientMessage.CliQueryNPCText, "18019")]
         public static void HandleCliQueryNPCText(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -204,7 +204,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             }
         }
 
-        [Opcode(ClientMessage.QueryPlayerName, "17930")]
+        [Opcode(ClientMessage.QueryPlayerName, "18019")]
         public static void HandleQueryPlayerName(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -305,7 +305,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             }
         }
 
-        [Opcode(ClientMessage.QueryRealmName, "17930")]
+        [Opcode(ClientMessage.QueryRealmName, "18019")]
         public static void HandleQueryRealmName(ref PacketReader packet, WorldClass session)
         {
             Character pChar = session.Character;
@@ -333,7 +333,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref realmQueryResponse);
         }
 
-        [Opcode(ClientMessage.DBQueryBulk, "17930")]
+        [Opcode(ClientMessage.DBQueryBulk, "18019")]
         public static void HandleDBQueryBulk(ref PacketReader packet, WorldClass session)
         {
             List<int> IdList = new List<int>();

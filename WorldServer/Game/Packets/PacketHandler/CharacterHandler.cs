@@ -34,7 +34,7 @@ namespace WorldServer.Game.PacketHandler
 {
     public class CharacterHandler : Globals
     {
-        [Opcode(ClientMessage.EnumCharacters, "17930")]
+        [Opcode(ClientMessage.EnumCharacters, "18019")]
         public static void HandleEnumCharactersResult(ref PacketReader packet, WorldClass session)
         {
             // Set existing character from last world session to null
@@ -152,7 +152,7 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref enumCharacters);
         }
 
-        [Opcode(ClientMessage.CreateCharacter, "17930")]
+        [Opcode(ClientMessage.CreateCharacter, "18019")]
         public static void HandleCreateCharacter(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -175,7 +175,7 @@ namespace WorldServer.Game.PacketHandler
             if (hasUnknown)
                 packet.ReadUInt32();
 
-            var result      = DB.Characters.Select("SELECT * from characters WHERE name = ?", name);
+            var result      = DB.Characters.Select("SELECT * FROM `characters` WHERE `name` = ?", name);
             var createChar  = new PacketWriter(ServerMessage.CreateChar);
 
             if (result.Count != 0)
@@ -186,7 +186,7 @@ namespace WorldServer.Game.PacketHandler
                 return;
             }
 
-            result = DB.Characters.Select("SELECT map, zone, posX, posY, posZ, posO FROM character_creation_data WHERE race = ? AND class = ?", race, pClass);
+            result = DB.Characters.Select("SELECT `map`, `zone`, `posX`, `posY`, `posZ`, `pos`O FROM `character_creation_data` WHERE `race` = ? AND `class` = ?", race, pClass);
             if (result.Count == 0)
             {
                 createChar.WriteUInt8(0x31);
@@ -204,7 +204,7 @@ namespace WorldServer.Game.PacketHandler
             // Allow declined names for now
             var characterFlags = CharacterFlag.Decline;
 
-            DB.Characters.Execute("INSERT INTO characters (name, accountid, realmId, race, class, gender, skin, zone, map, x, y, z, o, face, hairstyle, haircolor, facialhair, characterFlags) VALUES (" +
+            DB.Characters.Execute("INSERT INTO `characters` (`name`, `accountid`, `realmId`, `race`, `class`, `gender`, `skin`, `zone`, `map`, `x`, `y`, `z`, `o`, `face`, `hairstyle`, `haircolor`, `facialhair`, `characterFlags`) VALUES (" +
                                   "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                                   name, session.Account.Id, WorldConfig.RealmId, race, pClass, gender, skin, zone, map, posX, posY, posZ, posO, face, hairStyle, hairColor, facialHair, characterFlags);
 
@@ -213,7 +213,7 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref createChar);
         }
 
-        [Opcode(ClientMessage.CharDelete, "17930")]
+        [Opcode(ClientMessage.CharDelete, "18019")]
         public static void HandleCharDelete(ref PacketReader packet, WorldClass session)
         {
             byte[] guidMask     = { 3, 6, 5, 1, 7, 4, 0, 2 };
@@ -228,12 +228,12 @@ namespace WorldServer.Game.PacketHandler
 
             session.Send(ref deleteChar);
 
-            DB.Characters.Execute("DELETE FROM characters WHERE guid = ?", guid);
-            DB.Characters.Execute("DELETE FROM character_spells WHERE guid = ?", guid);
-            DB.Characters.Execute("DELETE FROM character_skills WHERE guid = ?", guid);
+            DB.Characters.Execute("DELETE FROM `characters` WHERE guid = ?", guid);
+            DB.Characters.Execute("DELETE FROM `character_spells` WHERE `guid` = ?", guid);
+            DB.Characters.Execute("DELETE FROM `character_skills` WHERE `guid` = ?", guid);
         }
 
-        [Opcode(ClientMessage.GenerateRandomCharacterName, "17930")]
+        [Opcode(ClientMessage.GenerateRandomCharacterName, "18019")]
         public static void HandleGenerateRandomCharacterName(ref PacketReader packet, WorldClass session)
         {
             var gender = packet.ReadByte();
@@ -247,7 +247,7 @@ namespace WorldServer.Game.PacketHandler
             do
             {
                 NewName = names[rand.Next(names.Count)];
-                result = DB.Characters.Select("SELECT * FROM characters WHERE name = ?", NewName);
+                result = DB.Characters.Select("SELECT * FROM `characters` WHERE `name` = ?", NewName);
             }
             while (result.Count != 0);
 
@@ -263,7 +263,7 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref generateRandomCharacterNameResult);
         }
 
-        [Opcode(ClientMessage.PlayerLogin, "17930")]
+        [Opcode(ClientMessage.PlayerLogin, "18019")]
         public static void HandlePlayerLogin(ref PacketReader packet, WorldClass session)
         {
             byte[] guidMask = { 4, 2, 7, 1, 0, 5, 6, 3 };
