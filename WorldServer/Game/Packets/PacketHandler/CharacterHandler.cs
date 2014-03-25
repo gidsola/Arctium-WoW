@@ -186,7 +186,7 @@ namespace WorldServer.Game.PacketHandler
                 return;
             }
 
-            result = DB.Characters.Select("SELECT `map`, `zone`, `posX`, `posY`, `posZ`, `pos`O FROM `character_creation_data` WHERE `race` = ? AND `class` = ?", race, pClass);
+            result = DB.Characters.Select("SELECT `map`, `zone`, `posX`, `posY`, `posZ`, `posO` FROM `character_creation_data` WHERE `race` = ? AND `class` = ?", race, pClass);
             if (result.Count == 0)
             {
                 createChar.WriteUInt8(0x31);
