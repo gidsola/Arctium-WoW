@@ -80,7 +80,7 @@ namespace WorldServer.Game.Managers
                 Log.Message(LogType.DB, "Added {0} default data definition for creatures.", missingIds.Length);
             }
 
-            result = DB.World.Select("SELECT * FROM `creature_stats` cs RIGHT JOIN `creature_data` cd ON cs.Id = cd.Id RIGHT JOIN `creature_data_addon` cda ON cda.Id = cd.Id WHERE cs.Id IS NOT NULL");
+            result = DB.World.Select("SELECT * FROM `creature_stats` cs RIGHT JOIN `creature_data` cd ON cd.Id = cs.Id RIGHT JOIN `creature_data_addon` cda ON cda.Id = cd.Id WHERE cs.Id IS NOT NULL");
 
             Parallel.For(0, result.Count, r =>
             {
