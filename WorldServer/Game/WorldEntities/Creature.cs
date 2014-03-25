@@ -69,7 +69,7 @@ namespace WorldServer.Game.WorldEntities
                 Stats.ExpansionRequired = result.Read<int>(0, "ExpansionRequired");
             }
 
-            result = DB.World.Select("SELECT * FROM creature_data WHERE id = ?", id);
+            result = DB.World.Select("SELECT * FROM `creature_data` WHERE id = ?", id);
 
             if (result.Count != 0)
             {
@@ -80,6 +80,8 @@ namespace WorldServer.Game.WorldEntities
                 Data.Class      = result.Read<byte>(0, "Class");
                 Data.Faction    = result.Read<int>(0, "Faction");
                 Data.Scale      = result.Read<int>(0, "Scale");
+                Data.MinDmg     = result.Read<int>(0, "MinDmg");
+                Data.MaxDmg     = result.Read<int>(0, "MaxDmg");
                 Data.UnitFlags  = result.Read<uint>(0, "UnitFlags");
                 Data.UnitFlags2 = result.Read<uint>(0, "UnitFlags2");
                 Data.NpcFlags   = result.Read<int>(0, "NpcFlags");

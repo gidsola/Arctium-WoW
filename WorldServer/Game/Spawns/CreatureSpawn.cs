@@ -54,7 +54,7 @@ namespace WorldServer.Game.Spawns
 
         public bool AddToDB()
         {
-            if (DB.World.Execute("INSERT INTO creature_spawns (Id, Map, X, Y, Z, O) VALUES (?, ?, ?, ?, ?, ?)", Id, Map, Position.X, Position.Y, Position.Z, Position.O))
+            if (DB.World.Execute("INSERT INTO `creature_spawns` (`Id`, `Map`, `x`, `y`, `z`, `o`) VALUES (?, ?, ?, ?, ?, ?)", Id, Map, Position.X, Position.Y, Position.Z, Position.O))
             {
                 Log.Message(LogType.DB, "Creature (Id: {0}) successfully spawned (Guid: {1})", Id, Guid);
                 return true;
@@ -148,8 +148,8 @@ namespace WorldServer.Game.Spawns
 
             SetUpdateField<float>((int)UnitFields.BoundingRadius, 0.389F);
             SetUpdateField<float>((int)UnitFields.CombatReach, 1.5F);
-            SetUpdateField<float>((int)UnitFields.MinDamage, 0);
-            SetUpdateField<float>((int)UnitFields.MaxDamage, 0);
+            SetUpdateField<float>((int)UnitFields.MinDamage, Creature.Data.MinDmg);
+            SetUpdateField<float>((int)UnitFields.MaxDamage, Creature.Data.MaxDmg);
             SetUpdateField<float>((int)UnitFields.ModCastingSpeed, 1);
             SetUpdateField<int>((int)UnitFields.AttackPower, 0);
             SetUpdateField<int>((int)UnitFields.RangedAttackPower, 0);

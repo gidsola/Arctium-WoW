@@ -126,6 +126,8 @@ namespace WorldServer.Game.Managers
                         Class      = result.Read<byte>(r, "Class"),
                         Faction    = result.Read<int>(r, "Faction"),
                         Scale      = result.Read<int>(r, "Scale"),
+                        MinDmg     = result.Read<int>(r, "MinDmg"),
+                        MaxDmg     = result.Read<int>(r, "MaxDmg"),
                         UnitFlags  = result.Read<uint>(r, "UnitFlags"),
                         UnitFlags2 = result.Read<uint>(r, "UnitFlags2"),
                         NpcFlags   = result.Read<int>(r, "NpcFlags")
