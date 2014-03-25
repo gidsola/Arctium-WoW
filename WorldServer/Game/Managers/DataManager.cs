@@ -80,7 +80,7 @@ namespace WorldServer.Game.Managers
                 Log.Message(LogType.DB, "Added {0} default data definition for creatures.", missingIds.Length);
             }
 
-            result = DB.World.Select("SELECT * FROM `creature_stats` cs RIGHT JOIN `creature_data` cd ON cs.Id = cd.Id WHERE cs.Id IS NOT NULL");
+            result = DB.World.Select("SELECT * FROM `creature_stats` cs RIGHT JOIN `creature_data` cd ON cs.Id = cd.Id RIGHT JOIN `creature_data_addon` cda ON cda.Id = cd.Id WHERE cs.Id IS NOT NULL");
 
             Parallel.For(0, result.Count, r =>
             {
@@ -131,6 +131,17 @@ namespace WorldServer.Game.Managers
                         UnitFlags  = result.Read<uint>(r, "UnitFlags"),
                         UnitFlags2 = result.Read<uint>(r, "UnitFlags2"),
                         NpcFlags   = result.Read<int>(r, "NpcFlags")
+                    },
+
+                    DataAddon = new CreatureDataAddon
+                    {
+                        Id = result.Read<int>(r, "Id"),
+                        PathId = result.Read<int>(r, "PathId"),
+                        MountId = result.Read<int>(r, "MountId"),
+                        Bytes1 = result.Read<int>(r, "Bytes1"),
+                        Bytes2 = result.Read<int>(r, "Bytes2"),
+                        EmoteState = result.Read<int>(r, "EmoteState"),
+                        AuraState = result.Read<string>(r, "AuraState")
                     },
 
                     Stats = Stats,

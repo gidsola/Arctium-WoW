@@ -32,4 +32,15 @@ namespace WorldServer.Game.ObjectDefines
         public uint UnitFlags2;
         public int NpcFlags;
     }
+
+    public class CreatureDataAddon
+    {
+        public int Id;
+        public int PathId;
+        public int MountId;
+        public int Bytes1;
+        public int Bytes2;
+        public int EmoteState;
+        public string AuraState;
+    }
 }

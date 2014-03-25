@@ -25,11 +25,12 @@ namespace WorldServer.Game.WorldEntities
     {
         public CreatureStats Stats;
         public CreatureData Data;
+        public CreatureDataAddon DataAddon;
 
         public Creature() { }
         public Creature(int id)
         {
-            SQLResult result = DB.World.Select("SELECT * FROM creature_stats WHERE id = ?", id);
+            SQLResult result = DB.World.Select("SELECT * FROM `creature_stats` WHERE `Id` = ?", id);
 
             if (result.Count != 0)
             {
@@ -69,7 +70,7 @@ namespace WorldServer.Game.WorldEntities
                 Stats.ExpansionRequired = result.Read<int>(0, "ExpansionRequired");
             }
 
-            result = DB.World.Select("SELECT * FROM `creature_data` WHERE id = ?", id);
+            result = DB.World.Select("SELECT * FROM `creature_data` WHERE `Id` = ?", id);
 
             if (result.Count != 0)
             {
@@ -85,6 +86,21 @@ namespace WorldServer.Game.WorldEntities
                 Data.UnitFlags  = result.Read<uint>(0, "UnitFlags");
                 Data.UnitFlags2 = result.Read<uint>(0, "UnitFlags2");
                 Data.NpcFlags   = result.Read<int>(0, "NpcFlags");
+            }
+
+            result = DB.World.Select("SELECT * FROM `creature_data_addon` WHERE `Id` = ?", id);
+
+            if (result.Count != 0)
+            {
+                DataAddon = new CreatureDataAddon();
+
+                DataAddon.Id = result.Read<int>(0, "Id");
+                DataAddon.PathId = result.Read<int>(0, "PathId");
+                DataAddon.MountId = result.Read<int>(0, "MountId");
+                DataAddon.Bytes1 = result.Read<int>(0, "Bytes1");
+                DataAddon.Bytes2 = result.Read<int>(0, "Bytes2");
+                DataAddon.EmoteState = result.Read<int>(0, "EmoteState");
+                DataAddon.AuraState = result.Read<string>(0, "AuraState");
             }
         }
     }
