@@ -63,7 +63,7 @@ namespace WorldServer
             Globals.Initialize();
 
             // Set all accounts offline
-            DB.Realms.Execute("UPDATE accounts SET online = 0");
+            DB.Realms.Execute("UPDATE `accounts` SET `IsOnline` = '0'");
 
             WorldClass.world = new WorldNetwork();
 

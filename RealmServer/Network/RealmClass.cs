@@ -84,7 +84,7 @@ namespace Framework.Network.Realm
             account.IP = data.ReadIPAddress();
             account.Name = data.ReadAccountName();
 
-            SQLResult result = DB.Realms.Select("SELECT id, name, password, expansion, gmlevel, securityFlags, online FROM accounts WHERE name = ?", account.Name);
+            SQLResult result = DB.Realms.Select("SELECT `id`, `Name`, `Password`, `Expansion`, `GMlevel`, `SecurityFlags`, `IsOnline` FROM `accounts` WHERE `Name` = ?", account.Name);
 
             using (var logonChallenge = new PacketWriter())
             {
@@ -93,21 +93,21 @@ namespace Framework.Network.Realm
 
                 if (result.Count != 0)
                 {
-                    if (result.Read<bool>(0, "online"))
+                    if (result.Read<bool>(0, "IsOnline"))
                     {
                         logonChallenge.WriteUInt8((byte)AuthResults.WOW_FAIL_ALREADY_ONLINE);
                         Send(logonChallenge);
                         return;
                     }
 
-                    account.Id = result.Read<int>(0, "id");
-                    account.Expansion = result.Read<byte>(0, "expansion");
-                    account.SecurityFlags = result.Read<byte>(0, "securityFlags");
+                    account.Id = result.Read<int>(0, "Id");
+                    account.Expansion = result.Read<byte>(0, "Expansion");
+                    account.SecurityFlags = result.Read<byte>(0, "SecurityFlags");
 
-                    DB.Realms.Execute("UPDATE accounts SET ip = ?, language = ? WHERE id = ?", account.IP, account.Language, account.Id);
+                    DB.Realms.Execute("UPDATE `accounts` SET `IP` = ?, `Language` = ? WHERE `ID` = ?", account.IP, account.Language, account.Id);
 
-                    var username = result.Read<string>(0, "name").ToUpper();
-                    var password = result.Read<string>(0, "password").ToUpper();
+                    var username = result.Read<string>(0, "Name").ToUpper();
+                    var password = result.Read<string>(0, "Password").ToUpper();
 
                     // WoW 5.4.7.x
                     if (ClientBuild >= 17898)
@@ -176,7 +176,7 @@ namespace Framework.Network.Realm
 
                 SecureRemotePassword.Dispose();
 
-                DB.Realms.Execute("UPDATE accounts SET sessionkey = ? WHERE id = ?", account.SessionKey, account.Id);
+                DB.Realms.Execute("UPDATE `accounts` SET `SessionKey` = ? WHERE `ID` = ?", account.SessionKey, account.Id);
 
                 Send(logonProof);
             }
@@ -190,7 +190,7 @@ namespace Framework.Network.Realm
             {
                 Realms.ToList().ForEach(r =>
                 {
-                    using (var result = DB.Characters.Select("SELECT COUNT(*) as Count FROM characters WHERE AccountId = ? AND RealmId = ?", account.Id, r.Value.Id))
+                    using (var result = DB.Characters.Select("SELECT COUNT(*) AS Count FROM `characters` WHERE `AccountId` = ? AND `RealmId` = ?", account.Id, r.Value.Id))
                     {
                         var charCount = result.Read<byte>(0, "Count");
 

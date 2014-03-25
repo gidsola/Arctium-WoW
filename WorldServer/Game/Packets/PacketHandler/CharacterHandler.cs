@@ -40,9 +40,9 @@ namespace WorldServer.Game.PacketHandler
             // Set existing character from last world session to null
             session.Character = null;
 
-            DB.Realms.Execute("UPDATE accounts SET online = 1 WHERE id = ?", session.Account.Id);
+            DB.Realms.Execute("UPDATE `accounts` SET `IsOnline` = '1' WHERE `id` = ?", session.Account.Id);
 
-            SQLResult result = DB.Characters.Select("SELECT * FROM characters WHERE accountid = ?", session.Account.Id);
+            SQLResult result = DB.Characters.Select("SELECT * FROM `characters` WHERE `accountid` = ?", session.Account.Id);
 
             PacketWriter enumCharacters = new PacketWriter(ServerMessage.EnumCharactersResult);
             BitPack BitPack = new BitPack(enumCharacters);

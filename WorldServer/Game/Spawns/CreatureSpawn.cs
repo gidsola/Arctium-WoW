@@ -126,8 +126,8 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<int>((int)UnitFields.BaseMana, 0);
             SetUpdateField<int>((int)UnitFields.Level, Creature.Data.Level);
             SetUpdateField<int>((int)UnitFields.FactionTemplate, Creature.Data.Faction);
-            SetUpdateField<int>((int)UnitFields.Flags, Creature.Data.UnitFlags);
-            SetUpdateField<int>((int)UnitFields.Flags2, Creature.Data.UnitFlags2);
+            SetUpdateField<uint>((int)UnitFields.Flags, Creature.Data.UnitFlags);
+            SetUpdateField<uint>((int)UnitFields.Flags2, Creature.Data.UnitFlags2);
             SetUpdateField<int>((int)UnitFields.NpcFlags, Creature.Data.NpcFlags);
 
             for (int i = 0; i < 5; i++)

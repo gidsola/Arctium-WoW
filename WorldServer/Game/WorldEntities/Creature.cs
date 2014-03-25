@@ -80,8 +80,8 @@ namespace WorldServer.Game.WorldEntities
                 Data.Class      = result.Read<byte>(0, "Class");
                 Data.Faction    = result.Read<int>(0, "Faction");
                 Data.Scale      = result.Read<int>(0, "Scale");
-                Data.UnitFlags  = result.Read<int>(0, "UnitFlags");
-                Data.UnitFlags2 = result.Read<int>(0, "UnitFlags2");
+                Data.UnitFlags  = result.Read<uint>(0, "UnitFlags");
+                Data.UnitFlags2 = result.Read<uint>(0, "UnitFlags2");
                 Data.NpcFlags   = result.Read<int>(0, "NpcFlags");
             }
         }

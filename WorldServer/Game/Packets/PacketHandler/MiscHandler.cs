@@ -75,7 +75,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (pChar != null)
                 WorldMgr.DeleteSession(pChar.Guid);
 
-            DB.Realms.Execute("UPDATE accounts SET online = 0 WHERE id = ?", session.Account.Id);
+            DB.Realms.Execute("UPDATE `accounts` SET `IsOnline` = '0' WHERE `id` = ?", session.Account.Id);
 
             Log.Message(LogType.Debug, "Account with Id {0} disconnected. Reason: {1}", session.Account.Id, disconnectReason);
         }
