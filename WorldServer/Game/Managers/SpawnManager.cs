@@ -121,7 +121,7 @@ namespace WorldServer.Game.Managers
                 CreatureSpawn spawn = new CreatureSpawn
                 {
                     Guid = guid,
-                    Id   = id,    
+                    Id   = id,
                     Map  = result.Read<uint>(i, "Map"),
 
                     Position = new Vector4()
@@ -130,7 +130,8 @@ namespace WorldServer.Game.Managers
                         Y = result.Read<float>(i, "Y"),
                         Z = result.Read<float>(i, "Z"),
                         O = result.Read<float>(i, "O")
-                    }
+                    },
+                    Health  = result.Read<int>(i, "Health"),
                 };
 
                 spawn.CreateFullGuid();

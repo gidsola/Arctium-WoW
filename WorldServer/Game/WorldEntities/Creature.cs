@@ -76,9 +76,11 @@ namespace WorldServer.Game.WorldEntities
             {
                 Data = new CreatureData();
 
-                Data.Health     = result.Read<int>(0, "Health");
                 Data.Level      = result.Read<byte>(0, "Level");
                 Data.Class      = result.Read<byte>(0, "Class");
+                Data.BaseHealth = result.Read<int>(0, "BaseHealth");
+                Data.MaxHealth  = result.Read<int>(0, "MaxHealth");
+                Data.BaseMana   = result.Read<int>(0, "BaseMana");
                 Data.Faction    = result.Read<int>(0, "Faction");
                 Data.Scale      = result.Read<int>(0, "Scale");
                 Data.MinDmg     = result.Read<int>(0, "MinDmg");
@@ -94,7 +96,6 @@ namespace WorldServer.Game.WorldEntities
             {
                 DataAddon = new CreatureDataAddon();
 
-                DataAddon.Id = result.Read<int>(0, "Id");
                 DataAddon.PathId = result.Read<int>(0, "PathId");
                 DataAddon.MountId = result.Read<int>(0, "MountId");
                 DataAddon.Bytes1 = result.Read<int>(0, "Bytes1");

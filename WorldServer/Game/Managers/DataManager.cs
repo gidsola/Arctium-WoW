@@ -121,9 +121,11 @@ namespace WorldServer.Game.Managers
                 {
                     Data = new CreatureData
                     {
-                        Health     = result.Read<int>(r, "Health"),
                         Level      = result.Read<byte>(r, "Level"),
                         Class      = result.Read<byte>(r, "Class"),
+                        BaseHealth = result.Read<int>(r, "BaseHealth"),
+                        MaxHealth  = result.Read<int>(r, "MaxHealth"),
+                        BaseMana   = result.Read<int>(r, "BaseMana"),
                         Faction    = result.Read<int>(r, "Faction"),
                         Scale      = result.Read<int>(r, "Scale"),
                         MinDmg     = result.Read<int>(r, "MinDmg"),
@@ -135,7 +137,6 @@ namespace WorldServer.Game.Managers
 
                     DataAddon = new CreatureDataAddon
                     {
-                        Id = result.Read<int>(r, "Id"),
                         PathId = result.Read<int>(r, "PathId"),
                         MountId = result.Read<int>(r, "MountId"),
                         Bytes1 = result.Read<int>(r, "Bytes1"),

@@ -21,9 +21,11 @@ namespace WorldServer.Game.ObjectDefines
 {
     public class CreatureData
     {
-        public int Health;
         public byte Level;
         public byte Class;
+        public int BaseHealth;
+        public int MaxHealth;
+        public int BaseMana;
         public int Faction;
         public float Scale;
         public int MinDmg;
@@ -35,7 +37,6 @@ namespace WorldServer.Game.ObjectDefines
 
     public class CreatureDataAddon
     {
-        public int Id;
         public int PathId;
         public int MountId;
         public int Bytes1;

@@ -29,6 +29,7 @@ namespace WorldServer.Game.Spawns
     public class CreatureSpawn : WorldObject
     {
         public int Id;
+        public int Health;
         public Creature Creature;
 
         public CreatureSpawn(int updateLength = (int)UnitFields.End) : base(updateLength) { }
@@ -110,20 +111,20 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<ulong>((int)UnitFields.Target, 0);
             SetUpdateField<ulong>((int)UnitFields.ChannelObject, 0);
 
-            SetUpdateField<int>((int)UnitFields.Health, Creature.Data.Health);
+            SetUpdateField<int>((int)UnitFields.Health, Health);
 
             for (int i = 0; i < 5; i++)
                 SetUpdateField<int>((int)UnitFields.Power + i, 0);
 
-            SetUpdateField<int>((int)UnitFields.MaxHealth, Creature.Data.Health);
+            SetUpdateField<int>((int)UnitFields.MaxHealth, Creature.Data.MaxHealth);
 
             for (int i = 0; i < 5; i++)
                 SetUpdateField<int>((int)UnitFields.MaxPower + i, 0);
 
             SetUpdateField<int>((int)UnitFields.PowerRegenFlatModifier, 0);
             SetUpdateField<int>((int)UnitFields.PowerRegenInterruptedFlatModifier, 0);
-            SetUpdateField<int>((int)UnitFields.BaseHealth, 1);
-            SetUpdateField<int>((int)UnitFields.BaseMana, 0);
+            SetUpdateField<int>((int)UnitFields.BaseHealth, Creature.Data.BaseHealth);
+            SetUpdateField<int>((int)UnitFields.BaseMana, Creature.Data.BaseMana);
             SetUpdateField<int>((int)UnitFields.Level, Creature.Data.Level);
             SetUpdateField<int>((int)UnitFields.FactionTemplate, Creature.Data.Faction);
             SetUpdateField<uint>((int)UnitFields.Flags, Creature.Data.UnitFlags);
