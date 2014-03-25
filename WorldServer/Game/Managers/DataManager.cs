@@ -70,7 +70,7 @@ namespace WorldServer.Game.Managers
         {
             Log.Message(LogType.DB, "Loading creatures...");
 
-            SQLResult result = DB.World.Select("SELECT cs.Id FROM creature_stats cs LEFT JOIN creature_data cd ON cs.Id = cd.Id WHERE cd.Id IS NULL");
+            SQLResult result = DB.World.Select("SELECT cs.Id FROM `creature_stats` cs LEFT JOIN `creature_data` cd ON cs.Id = cd.Id WHERE cd.Id IS NULL");
 
             if (result.Count != 0)
             {
@@ -80,7 +80,7 @@ namespace WorldServer.Game.Managers
                 Log.Message(LogType.DB, "Added {0} default data definition for creatures.", missingIds.Length);
             }
 
-            result = DB.World.Select("SELECT * FROM creature_stats cs RIGHT JOIN creature_data cd ON cs.Id = cd.Id WHERE cs.Id IS NOT NULL");
+            result = DB.World.Select("SELECT * FROM `creature_stats` cs RIGHT JOIN `creature_data` cd ON cs.Id = cd.Id WHERE cs.Id IS NOT NULL");
 
             Parallel.For(0, result.Count, r =>
             {
