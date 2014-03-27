@@ -17,6 +17,9 @@
 
 using System;
 using Framework.Database;
+using Framework.Logging;
+using Framework.ObjectDefines;
+using WorldServer.Game.Spawns;
 using WorldServer.Game.ObjectDefines;
 
 namespace WorldServer.Game.WorldEntities
@@ -26,7 +29,11 @@ namespace WorldServer.Game.WorldEntities
         public CreatureStats Stats;
         public CreatureData Data;
         public CreatureDataAddon DataAddon;
+        public CreatureSpawn spawn;
+        public CreatureSpawnAddon SpawnAddon;
 
+        public float HasHover;
+        
         public Creature() { }
         public Creature(int id)
         {
@@ -96,12 +103,35 @@ namespace WorldServer.Game.WorldEntities
             {
                 DataAddon = new CreatureDataAddon();
 
-                DataAddon.PathId = result.Read<int>(0, "PathId");
-                DataAddon.MountId = result.Read<int>(0, "MountId");
-                DataAddon.Bytes1 = result.Read<int>(0, "Bytes1");
-                DataAddon.Bytes2 = result.Read<int>(0, "Bytes2");
+                DataAddon.PathId     = result.Read<int>(0, "PathId");
+                DataAddon.MountId    = result.Read<int>(0, "MountId");
+                DataAddon.Bytes1     = result.Read<int>(0, "Bytes1");
+                DataAddon.Bytes2     = result.Read<int>(0, "Bytes2");
                 DataAddon.EmoteState = result.Read<int>(0, "EmoteState");
-                DataAddon.AuraState = result.Read<string>(0, "AuraState");
+                DataAddon.AuraState  = result.Read<string>(0, "AuraState");
+            }
+
+            if (DB.World.Execute("SELECT * FROM `creature_spawn_addon` WHERE `guid` = ?", spawn.Guid))
+            {
+                Log.Message(LogType.Debug, "Creature successfully checked (Guid: {1})", id, spawn.Guid);
+                Log.Message(LogType.Debug, "Continuing with spawn_addon load...");
+
+                if (result.Count != 0)
+                {
+                    SpawnAddon = new CreatureSpawnAddon();
+
+                    SpawnAddon.PathId = result.Read<int>(0, "PathId");
+                    SpawnAddon.MountId = result.Read<int>(0, "MountId");
+                    SpawnAddon.Bytes1 = result.Read<int>(0, "Bytes1");
+                    SpawnAddon.Bytes2 = result.Read<int>(0, "Bytes2");
+                    HasHover = result.Read<float>(0, "HoverHeight");
+                    if (HasHover > 0)
+                        SpawnAddon.HoverHeight = HasHover;
+                    else
+                        SpawnAddon.HoverHeight = 2.5f;
+                    SpawnAddon.EmoteState = result.Read<int>(0, "EmoteState");
+                    SpawnAddon.AuraState = result.Read<string>(0, "AuraState");
+                }
             }
         }
     }
