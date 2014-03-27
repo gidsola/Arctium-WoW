@@ -100,6 +100,13 @@ namespace WorldServer.Game.Packets.PacketHandler
             Log.Message(LogType.Debug, "Loading screen for map '{0}' is {1}.", mapId, loadingScreenState ? "enabled" : "disabled");
         }
 
+        [Opcode(ClientMessage.CharacterSelectScreen, "18019")]
+        public static void HandleCharacterSelectScreen(ref PacketReader packet, WorldClass session)
+        {
+           Log.Message(LogType.Debug, "Character Selection Screen");
+           return;
+        }
+
         [Opcode(ClientMessage.ViolenceLevel, "18019")]
         public static void HandleViolenceLevel(ref PacketReader packet, WorldClass session)
         {

@@ -30,6 +30,8 @@ namespace WorldServer.Game.Spawns
     {
         public int Id;
         public int Health;
+        public float HoverHeight;
+
         public Creature Creature;
 
         public CreatureSpawn(int updateLength = (int)UnitFields.End) : base(updateLength) { }
@@ -178,6 +180,7 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<float>((int)UnitFields.AttackPowerMultiplier, 0);
             SetUpdateField<float>((int)UnitFields.RangedAttackPowerMultiplier, 0);
             SetUpdateField<float>((int)UnitFields.MaxHealthModifier, 1);
+            SetUpdateField<float>((int)UnitFields.HoverHeight, HoverHeight);
         }
     }
 }

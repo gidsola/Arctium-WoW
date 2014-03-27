@@ -42,6 +42,7 @@ namespace Framework.Constants.NetMessage
         GenerateRandomCharacterName = 0x1DB9,
         EnumCharacters              = 0x12C2,
         PlayerLogin                 = 0x17D3,
+        CharacterSelectScreen       = 0x1282,
         LoadingScreenNotify         = 0x1691,
         SetActionButton             = 0x1393,
         CreateCharacter             = 0x09B9,

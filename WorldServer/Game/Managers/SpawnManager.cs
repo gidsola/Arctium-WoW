@@ -131,7 +131,8 @@ namespace WorldServer.Game.Managers
                         Z = result.Read<float>(i, "Z"),
                         O = result.Read<float>(i, "O")
                     },
-                    Health  = result.Read<int>(i, "Health"),
+                    Health      = result.Read<int>(i, "Health"),
+                    HoverHeight = result.Read<int>(i, "HoverHeight")
                 };
 
                 spawn.CreateFullGuid();
