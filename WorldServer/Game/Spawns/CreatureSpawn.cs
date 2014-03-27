@@ -30,8 +30,8 @@ namespace WorldServer.Game.Spawns
     {
         public int Id;
         public int Health;
-
         public Creature Creature;
+
         public CreatureSpawn(int updateLength = (int)UnitFields.End) : base(updateLength) { }
 
         public static ulong GetLastGuid()
@@ -57,11 +57,8 @@ namespace WorldServer.Game.Spawns
         {
             if (DB.World.Execute("INSERT INTO `creature_spawns` (`Id`, `Map`, `x`, `y`, `z`, `o`) VALUES (?, ?, ?, ?, ?, ?)", Id, Map, Position.X, Position.Y, Position.Z, Position.O))
             {
-                if (DB.World.Execute("INSERT INTO `creature_spawn_addon` (`guid`) VALUES (?)", Guid))
-                {
-                    Log.Message(LogType.DB, "Creature (Id: {0}) successfully spawned (Guid: {1})", Id, Guid);
-                    return true;
-                }
+                Log.Message(LogType.DB, "Creature (Id: {0}) successfully spawned (Guid: {1})", Id, Guid);
+                return true;
             }
 
             return false;
@@ -133,7 +130,6 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<uint>((int)UnitFields.Flags, Creature.Data.UnitFlags);
             SetUpdateField<uint>((int)UnitFields.Flags2, Creature.Data.UnitFlags2);
             SetUpdateField<int>((int)UnitFields.NpcFlags, Creature.Data.NpcFlags);
-            SetUpdateField<float>((int)UnitFields.HoverHeight, 2.5f);
 
             for (int i = 0; i < 5; i++)
             {

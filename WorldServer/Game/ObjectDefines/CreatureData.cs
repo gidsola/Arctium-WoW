@@ -44,15 +44,4 @@ namespace WorldServer.Game.ObjectDefines
         public int EmoteState;
         public string AuraState;
     }
-
-    public class CreatureSpawnAddon
-    {
-        public int PathId;
-        public int MountId;
-        public int Bytes1;
-        public int Bytes2;
-        public float HoverHeight;
-        public int EmoteState;
-        public string AuraState;
-    }
 }

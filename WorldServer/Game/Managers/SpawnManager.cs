@@ -24,7 +24,6 @@ using Framework.Logging;
 using Framework.ObjectDefines;
 using Framework.Singleton;
 using WorldServer.Game.Spawns;
-using WorldServer.Game.ObjectDefines;
 using WorldServer.Game.WorldEntities;
 
 namespace WorldServer.Game.Managers
@@ -105,7 +104,7 @@ namespace WorldServer.Game.Managers
         {
             Log.Message(LogType.DB, "Loading creature spawns...");
 
-            SQLResult result = DB.World.Select("SELECT * FROM `creature_spawns` csp LEFT JOIN `creature_spawn_addon` cspa ON cspa.guid = csp.guid WHERE csp.guid IS NOT NULL");
+            SQLResult result = DB.World.Select("SELECT * FROM creature_spawns");
 
             Parallel.For(0, result.Count, (i, loop) =>
             {
@@ -132,18 +131,7 @@ namespace WorldServer.Game.Managers
                         Z = result.Read<float>(i, "Z"),
                         O = result.Read<float>(i, "O")
                     },
-                    Health  = result.Read<int>(i, "Health")
-                };
-
-                CreatureSpawnAddon SpawnAddon = new CreatureSpawnAddon
-                {
-                    PathId      = result.Read<int>(i, "PathId"),
-                    MountId     = result.Read<int>(i, "MountId"),
-                    Bytes1      = result.Read<int>(i, "Bytes1"),
-                    Bytes2      = result.Read<int>(i, "Bytes2"),
-                    HoverHeight = result.Read<float>(i, "HoverHeight"),
-                    EmoteState  = result.Read<int>(i, "EmoteState"),
-                    AuraState   = result.Read<string>(i, "AuraState")
+                    Health  = result.Read<int>(i, "Health"),
                 };
 
                 spawn.CreateFullGuid();
